@@ -26,7 +26,6 @@ def index(request):
     context_dict['pages'] = page_list
 
     visitor_cookie_handler(request)
-    context_dict['visits'] = request.session['visits']
 
     response = render(request, 'rango/index.html', context=context_dict)
     # Render the response and send it back!
@@ -35,6 +34,8 @@ def index(request):
 def about(request):
     #return HttpResponse("<a href='/rango/'>Index</a> Rango says here is the about page.")
     context_dict = {'boldmessage': 'This tutorial has been put together by Lewis.', 'MEDIA_URL' : '/media/'}
+    visitor_cookie_handler(request)
+    context_dict['visits'] = request.session['visits']
     if request.session.test_cookie_worked():
         print("TEST COOKIE WORKED!")
         request.session.delete_test_cookie()
